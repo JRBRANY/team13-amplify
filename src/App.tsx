@@ -46,10 +46,8 @@ function App() {
         <nav className="nav-links">
           <button onClick={() => setCurrentPage("home")}>Home</button> |{" "}
           <button onClick={() => setCurrentPage("about")}>About</button> |{" "}
-          <button onClick={() => setCurrentPage("driver")}>Driver</button> |{" "}
-          <button onClick={() => setCurrentPage("sponsor")}>Sponsor</button> |{" "}
-          <button onClick={() => setCurrentPage("admin")}>Admin</button>
-
+          <button onClick={() => auth.signinRedirect()}>Sign in</button>
+          <button onClick={() => auth.signinRedirect({ extraQueryParams: { prompt: "signup" } })}>Sign up</button>
         </nav>
       </header>
 
