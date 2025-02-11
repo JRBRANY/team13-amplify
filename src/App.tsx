@@ -55,11 +55,6 @@ function App() {
           <button onClick={() => setCurrentPage("driver")}>Driver</button> |{" "}
           <button onClick={() => setCurrentPage("sponsor")}>Sponsor</button>
 
-          {/* Sign-in / Sign-out buttons next to links */}
-          <div className="auth-buttons">
-            <button onClick={() => auth.signinRedirect()}>Sign in</button>
-            <button onClick={() => signOutRedirect()}>Sign out</button>
-          </div>
         </nav>
       </header>
 
