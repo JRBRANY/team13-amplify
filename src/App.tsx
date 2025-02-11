@@ -1,4 +1,10 @@
+import React from 'react';
 import { useAuth } from "react-oidc-context";
+import { Routes, Route, Link } from "react-router-dom";
+import Home from './pages/Home';
+import About from './pages/About';
+import Driver from './pages/Driver';
+import Sponsor from './pages/Sponsor';
 
 function App() {
   const auth = useAuth();
@@ -33,10 +39,33 @@ function App() {
 
   return (
     <div>
-      <button onClick={() => auth.signinRedirect()}>Sign in</button>
-      <button onClick={() => signOutRedirect()}>Sign out</button>
+      {/* Navbar with links and buttons in one flex container */}
+      <header className="navbar">
+        <nav className="nav-links">
+          <Link to="/">Home</Link> |{" "}
+          <Link to="/about">About</Link> |{" "}
+          <Link to="/driver">Driver</Link> |{" "}
+          <Link to="/sponsor">Sponsor</Link>
+  
+          {/* Sign-in / Sign-out buttons next to links */}
+          <div className="auth-buttons">
+            <button onClick={() => auth.signinRedirect()}>Sign in</button>
+            <button onClick={() => signOutRedirect()}>Sign out</button>
+          </div>
+        </nav>
+      </header>
+  
+      {/* Page content */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/driver" element={<Driver />} />
+        <Route path="/sponsor" element={<Sponsor />} />
+      </Routes>
     </div>
   );
+  
+  
 }
 
 export default App;
