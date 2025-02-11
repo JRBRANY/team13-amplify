@@ -12,13 +12,13 @@ const Success = () => {
   // Function to navigate to the correct dashboard
   const handleGoToDashboard = () => {
     switch (userGroup) {
-      case "driver":
+      case "Driver":
         navigate("/driver-dashboard");
         break;
-      case "sponsor":
+      case "Sponsor":
         navigate("/sponsor-dashboard");
         break;
-      case "admin":
+      case "Admin":
         navigate("/admin-dashboard");
         break;
       default:
