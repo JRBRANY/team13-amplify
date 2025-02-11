@@ -4,6 +4,9 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Driver from './pages/Driver';
 import Sponsor from './pages/Sponsor';
+import DriverDashboard from './dashboards/DriverDashboard';
+import SponsorDashboard from './dashboards/SponsorDashboard';
+import AdminDashboard from './dashboards/AdminDashboard';
 
 function App() {
   const auth = useAuth();
@@ -28,18 +31,18 @@ function App() {
 
     /* Obtain the group the user is assigned to in Cognito */
     const cognitoGroups: string[] = auth.user?.profile?.["cognito:groups"] as string[] || [];
+    const userGroup = cognitoGroups[0];
 
-    return (
-      <div>
-        <pre> Hello: {auth.user?.profile.email} </pre>
-        <pre> ID Token: {auth.user?.id_token} </pre>
-        <pre> Access Token: {auth.user?.access_token} </pre>
-        <pre> Refresh Token: {auth.user?.refresh_token} </pre>
-        <pre> Refresh Token: {auth.user?.refresh_token} </pre>
-        <pre> Group: {cognitoGroups[0]} </pre>
-        <button onClick={() => auth.removeUser()}>Sign out</button>
-      </div>
-    );
+    switch (userGroup) {
+      case "Driver":
+        return <DriverDashboard />;
+      case "Sponsor":
+        return <SponsorDashboard />;
+      case "Admin":
+        return <AdminDashboard />;
+      default:
+        return <div>Access Denied</div>;
+    }
   }
 
   return (
