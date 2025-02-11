@@ -8,7 +8,7 @@ type AboutInfo = {
     team_member3: string;
     team_member4: string;
     team_member5: string;
-    created_at?: string;
+    created_at: string;
 };
 
 export default function About() {
