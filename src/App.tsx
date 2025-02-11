@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAuth } from "react-oidc-context";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from './pages/Home';
