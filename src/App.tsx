@@ -1,5 +1,5 @@
 import { useAuth } from "react-oidc-context";
-import { Routes, Route, Link } from "react-router-dom";
+import { useState } from "react";
 import Home from './pages/Home';
 import About from './pages/About';
 import Driver from './pages/Driver';
@@ -7,6 +7,7 @@ import Sponsor from './pages/Sponsor';
 
 function App() {
   const auth = useAuth();
+  const [currentPage, setCurrentPage] = useState("home"); // Track active page
 
   const signOutRedirect = () => {
     const clientId = "r7oq53d98cg6a8l4cj6o8l7tm";
@@ -30,7 +31,6 @@ function App() {
         <pre> ID Token: {auth.user?.id_token} </pre>
         <pre> Access Token: {auth.user?.access_token} </pre>
         <pre> Refresh Token: {auth.user?.refresh_token} </pre>
-
         <button onClick={() => auth.removeUser()}>Sign out</button>
       </div>
     );
@@ -38,14 +38,14 @@ function App() {
 
   return (
     <div>
-      {/* Navbar with links and buttons in one flex container */}
+      {/* Navbar with buttons for navigation */}
       <header className="navbar">
         <nav className="nav-links">
-          <Link to="/">Home</Link> |{" "}
-          <Link to="/about">About</Link> |{" "}
-          <Link to="/driver">Driver</Link> |{" "}
-          <Link to="/sponsor">Sponsor</Link>
-  
+          <button onClick={() => setCurrentPage("home")}>Home</button> |{" "}
+          <button onClick={() => setCurrentPage("about")}>About</button> |{" "}
+          <button onClick={() => setCurrentPage("driver")}>Driver</button> |{" "}
+          <button onClick={() => setCurrentPage("sponsor")}>Sponsor</button>
+
           {/* Sign-in / Sign-out buttons next to links */}
           <div className="auth-buttons">
             <button onClick={() => auth.signinRedirect()}>Sign in</button>
@@ -53,18 +53,16 @@ function App() {
           </div>
         </nav>
       </header>
-  
-      {/* Page content */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/driver" element={<Driver />} />
-        <Route path="/sponsor" element={<Sponsor />} />
-      </Routes>
+
+      {/* Render the selected page */}
+      <main>
+        {currentPage === "home" && <Home />}
+        {currentPage === "about" && <About />}
+        {currentPage === "driver" && <Driver />}
+        {currentPage === "sponsor" && <Sponsor />}
+      </main>
     </div>
   );
-  
-  
 }
 
 export default App;

@@ -1,11 +1,9 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './App.tsx';
 
-import './index.css'
-import App from './App.tsx'
-
-//Cognito imports
+// Cognito imports
 import { AuthProvider } from "react-oidc-context";
 
 const cognitoAuthConfig = {
@@ -16,13 +14,10 @@ const cognitoAuthConfig = {
   scope: "email openid phone",
 };
 
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <AuthProvider {...cognitoAuthConfig}>
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
+    <AuthProvider {...cognitoAuthConfig}>
+      <App />
+    </AuthProvider>
   </StrictMode>
-)
+);
