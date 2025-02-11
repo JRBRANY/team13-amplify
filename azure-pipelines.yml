@@ -1,6 +1,3 @@
-# Pipeline to automatically mirror
-# an Azure DevOps repository in a private GitHub repository
-
 # Trigger on all branches
 trigger:
 - '*'
@@ -9,22 +6,32 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-# Pipeline
+# Pipeline Steps
 steps:
-- checkout: none
-- script: |
-      
-      # Install urlencode function to encode reserved characters in passwords
-      sudo apt-get install gridsite-clients
+- checkout: self
 
-      # Create local mirror of Azure DevOps repository
-      git clone --mirror https://${AZURE_GIT_USERNAME}:$(urlencode ${AZURE_GIT_PASSWORD})@${AZURE_REPO_URL} repo-mirror
-      
-      # Sync GitHub repository
-      cd repo-mirror
-      
-      git push --mirror "https://${GITHUB_USERNAME}:$(urlencode ${GITHUB_TOKEN})@github.com/${GITHUB_USERNAME}/${GITHUB_REPO}.git"
-      
+# Set Node.js Version to 20.x
+- task: UseNode@1
+  inputs:
+    version: '20.x'
+
+# Install Dependencies & Build
+- script: |
+    npm install
+    npm run build
+  displayName: 'Install Dependencies & Build'
+
+# Sync to GitHub Repository
+- script: |
+    # Install urlencode function to encode reserved characters in passwords
+    sudo apt-get install gridsite-clients
+
+    # Create local mirror of Azure DevOps repository
+    git clone --mirror https://${AZURE_GIT_USERNAME}:$(urlencode ${AZURE_GIT_PASSWORD})@${AZURE_REPO_URL} repo-mirror
+
+    # Sync GitHub repository
+    cd repo-mirror
+    git push --mirror "https://${GITHUB_USERNAME}:$(urlencode ${GITHUB_TOKEN})@github.com/${GITHUB_USERNAME}/${GITHUB_REPO}.git"
   displayName: 'Sync repository with GitHub'
   env:
     AZURE_REPO_URL: $(AZURE_REPO_URL)
