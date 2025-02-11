@@ -48,15 +48,36 @@ function App() {
 
   return (
     <div>
-      {/* Navbar with buttons for navigation */}
+      {/* Navbar with buttons for navigation
       <header className="navbar">
         <nav className="nav-links">
           <button onClick={() => setCurrentPage("home")}>Home</button> |{" "}
           <button onClick={() => setCurrentPage("about")}>About</button> |{" "}
           <button onClick={() => auth.signinRedirect()}>Sign in</button> |{" "}
-          <button onClick={() => auth.signinRedirect({ extraQueryParams: { prompt: "signup" } })}>Sign up</button> |{" "}
-          <button onClick={() => signOutRedirect()}>Sign out</button>
+          <button onClick={() => auth.signinRedirect({ extraQueryParams: { prompt: "signup" } })}>Sign up</button>
         </nav>
+      </header> */}
+
+      {/* Left Side - Info Links */}
+      <header className="navbar">
+        {/* Navbar with buttons for navigation */}
+        <nav className="nav-links">
+          <button className="nav-button" onClick={() => setCurrentPage("home")}>Home</button>
+          <span className="divider">|</span>
+          <button className="nav-button" onClick={() => setCurrentPage("about")}>About</button>
+        </nav>
+
+        {/* Middle - Home Redirect */}
+        <div className="home-button">
+          <a href="/" className="home-link">Drive Rewards</a>
+        </div>
+
+        {/* Right Side - Authentication Links */}
+        <div className="auth-buttons">
+          <button className="auth-button" onClick={() => auth.signinRedirect()}>Sign in</button>
+          <span className="divider">|</span>
+          <button className="auth-button" onClick={() => auth.signinRedirect({ extraQueryParams: { prompt: "signup" } })}>Sign up</button>
+        </div>
       </header>
 
       {/* Render the selected page */}
