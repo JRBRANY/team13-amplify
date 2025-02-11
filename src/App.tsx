@@ -84,9 +84,6 @@ function App() {
       <main>
         {currentPage === "home" && <Home />}
         {currentPage === "about" && <About />}
-        {currentPage === "driver" && <Driver />}
-        {currentPage === "sponsor" && <Sponsor />}
-        {currentPage === "admin" && <Admin />}
       </main>
     </div>
   );
