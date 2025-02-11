@@ -1,24 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+type AboutInfo = {
+    id: number;
+    sprint_num: number;
+    team_member1: string;
+    team_member2: string;
+    team_member3: string;
+    team_member4: string;
+    team_member5: string;
+};
 
 export default function About() {
-    const [aboutData, setAboutData] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
-    const [error, setError] = React.useState(null);
+    const [aboutData, setAboutData] = useState<AboutInfo[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
-    React.useEffect(() => {
-        fetch("http://ec2-13-216-202-113.compute-1.amazonaws.com:4000/about")
+    useEffect(() => {
+        fetch("http://ec2-13-216-202-113.compute-1.amazonaws.com:4000/about") // Ensure this is the correct API URL
             .then(response => {
                 if (!response.ok) {
-                    throw new Error("Failed to load about information");
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 return response.json();
             })
-            .then(data => {
+            .then((data: AboutInfo[]) => {
                 setAboutData(data);
                 setLoading(false);
             })
             .catch(err => {
-                setError(err.message);
+                console.error("Fetch error:", err);
+                setError("Failed to load about information.");
                 setLoading(false);
             });
     }, []);
