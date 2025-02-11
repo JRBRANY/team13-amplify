@@ -17,7 +17,7 @@ export default function About() {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        fetch("http://ec2-13-216-202-113.compute-1.amazonaws.com:4000/about") // Ensure this is the correct API URL
+        fetch("https://f80ht57pud.execute-api.us-east-1.amazonaws.com/about") // Ensure this is the correct API URL
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
