@@ -12,6 +12,7 @@ const cognitoAuthConfig = {
   redirect_uri: "https://main.d1zgxgaa1s4k42.amplifyapp.com/",
   response_type: "code",
   scope: "email openid phone",
+  storage: window.localStorage
 };
 
 createRoot(document.getElementById('root')!).render(
