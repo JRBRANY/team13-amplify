@@ -26,7 +26,8 @@ function App() {
 
   if (auth.isAuthenticated) {
 
-    const cognitoGroups = auth.user?.profile?.["cognito:groups"] || [];
+    /* Obtain the group the user is assigned to in Cognito */
+    const cognitoGroups: string[] = auth.user?.profile?.["cognito:groups"] as string[] || [];
 
     return (
       <div>
