@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Driver from './pages/Driver';
 import Sponsor from './pages/Sponsor';
+import Admin from './pages/Admin';
 import DriverDashboard from './dashboards/DriverDashboard';
 import SponsorDashboard from './dashboards/SponsorDashboard';
 import AdminDashboard from './dashboards/AdminDashboard';
@@ -11,13 +12,6 @@ import AdminDashboard from './dashboards/AdminDashboard';
 function App() {
   const auth = useAuth();
   const [currentPage, setCurrentPage] = useState("home"); // Track active page
-
-  const signOutRedirect = () => {
-    const clientId = "r7oq53d98cg6a8l4cj6o8l7tm";
-    const logoutUri = "https://main.d1zgxgaa1s4k42.amplifyapp.com/";
-    const cognitoDomain = "https://us-east-1jnojoftl2.auth.us-east-1.amazoncognito.com";
-    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
-  };
 
   if (auth.isLoading) {
     return <div>Loading...</div>;
@@ -53,7 +47,8 @@ function App() {
           <button onClick={() => setCurrentPage("home")}>Home</button> |{" "}
           <button onClick={() => setCurrentPage("about")}>About</button> |{" "}
           <button onClick={() => setCurrentPage("driver")}>Driver</button> |{" "}
-          <button onClick={() => setCurrentPage("sponsor")}>Sponsor</button>
+          <button onClick={() => setCurrentPage("sponsor")}>Sponsor</button> |{" "}
+          <button onClick={() => setCurrentPage("admin")}>Admin</button>
 
         </nav>
       </header>
@@ -64,6 +59,7 @@ function App() {
         {currentPage === "about" && <About />}
         {currentPage === "driver" && <Driver />}
         {currentPage === "sponsor" && <Sponsor />}
+        {currentPage === "admin" && <Admin />}
       </main>
     </div>
   );
